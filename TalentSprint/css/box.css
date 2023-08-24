@@ -1,0 +1,13 @@
+.box {
+  width: 150px;
+  height: 120px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  transition: transform 0.1s;
+}
+
+.box:hover {
+  /* background-color: red; */
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+}

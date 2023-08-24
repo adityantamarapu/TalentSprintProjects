@@ -1,0 +1,61 @@
+body {
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+.bubble {
+  position: absolute;
+  padding: 10px;
+  border-radius: 50%;
+  background: radial-gradient(lightblue, #87ceeb); /* Lighter blue gradient */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: black;
+  transition: transform 0.5s, box-shadow 0.5s; /* Include box-shadow in the transition */
+  box-shadow: 0 0 10px rgba(0, 0, 255, 0); /* Initial box shadow */
+  cursor: grab; /* Set grab cursor for draggable bubbles */
+  user-select: none; /* Prevent text selection */
+}
+.bubble:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 255, 0.5); /* Blue shadow on hover */
+}
+.dragging {
+  cursor: grabbing; /* Set grabbing cursor during drag */
+}
+
+.card-container{
+  position: absolute;
+  bottom: -40px; /* Adjust the distance from the bubble */
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+.description-card{
+  background-color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+.pop-button{
+  padding: 5px 10px;
+  margin-left: 2px; 
+}
+
+.form-check-label{
+  margin-left: 20px;
+}
+
+.list-container {
+  background-color: #fff;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 3%;
+}
+
