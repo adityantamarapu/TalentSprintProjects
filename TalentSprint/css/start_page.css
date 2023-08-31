@@ -1,0 +1,49 @@
+/* Center content vertically */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for the snake icon */
+.snake-icon {
+  font-size: 2rem; /* Adjust the size as needed */
+  margin-right: 10px;
+}
+
+/* Style for the instructions card */
+.instructions-card {
+  display: none;
+  position: absolute;
+  width: 300px;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  margin-top: 10px;
+}
+
+/* Show the instructions card on hover */
+.btn-instructions:hover + .instructions-card {
+  display: block;
+}
+
+/* Style for the battle card */
+.battle-card {
+  display: none;
+  position: absolute;
+  width: 300px;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  margin-top: 10px;
+}
+
+/* Show the battle card on hover */
+.btn-battle:hover + .battle-card {
+  display: block;
+}

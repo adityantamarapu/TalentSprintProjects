@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.game-container {
+    width: 49vw;
+    height: 100vh;
+    border: 16px solid black;
+    box-sizing: border-box;
+    display: grid; /* Use grid display */
+    grid-template-columns: repeat(auto-fill, 20px); /* Set cell size */
+    grid-auto-rows: 20px;
+    gap: 1px; /* Gap between cells */
+}
+
+.grid-cell {
+    background-color: #ccc;
+}
+
+.player {
+    background-color: blue; /* Set the snake color */
+}
+
+.apple {
+    background-color: red;
+}
+
+/* Style for the game over card */
+.game-over-card {
+    display: none;
+    position: absolute;
+    width: 300px;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    margin-top: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
