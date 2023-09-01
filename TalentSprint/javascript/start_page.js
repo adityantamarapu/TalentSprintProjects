@@ -1,5 +1,6 @@
 const playButton = document.querySelector(".play-button");
 const createButton= document.querySelector('.create-button');
+const joinButton= document.querySelector('.join-button');
 const instructionsButton = document.querySelector(".btn-instructions");
 const instructionsCard = document.querySelector(".instructions-card");
 const CodeInputField= document.querySelector('.code-input');
@@ -38,9 +39,13 @@ playButton.addEventListener("click", function () {
 });
 
 
-createButton.addEventListener("click", function() {
+joinButton.addEventListener("click", function() {
     const battleCode = CodeInputField.value.trim();
     if (battleCode !== "") {
-        window.location.href = `../view/multi_play_game.html?battleCode=${encodeURIComponent(battleCode)}`;
+        window.location.href = `../view/multi_play_game.html?2IP=${encodeURIComponent(battleCode)}`;
     }
+});
+
+createButton.addEventListener('click', function(){
+  window.location.href = "../view/multi_play_game.html";
 });

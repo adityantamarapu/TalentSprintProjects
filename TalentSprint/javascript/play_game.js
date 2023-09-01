@@ -44,15 +44,14 @@ function movePlayer() {
   ) {
     const newPlayerHead = { x: newPlayerX, y: newPlayerY };
 
-    playerSegments.unshift(newPlayerHead);
+    playerSegments.unshift(newPlayerHead);// add new player head
 
     // Check if the player occupied the apple cell
     if (newPlayerX === applePosition.x && newPlayerY === applePosition.y) {
-      increaseSnakeLength();
+      // dont remove player tail to increase length of snake when apple is eaten
       generateApple();
-      playerSegments.pop();
     } else {
-      playerSegments.pop();
+      playerSegments.pop();// remove player tail to display movement
     }
 
     updatePlayerPositions();
@@ -60,11 +59,6 @@ function movePlayer() {
     clearInterval(gameInterval);
     showGameOverCard();
   }
-}
-
-function increaseSnakeLength() {
-  const tail = playerSegments[playerSegments.length - 1];
-  playerSegments.push({ x: tail.x, y: tail.y });
 }
 
 function updatePlayerPositions() {
