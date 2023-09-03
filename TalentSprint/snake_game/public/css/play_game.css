@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.game-container {
+    width: 600px;
+    height: 600px;
+    border: 16px solid black;
+    box-sizing: border-box;
+    display: grid; /* Use grid display */
+    grid-template-columns: repeat(auto-fill, 20px); /* Set cell size */
+    grid-auto-rows: 20px;
+    gap: 1px; /* Gap between cells */
+}
+
+.grid-cell {
+    background-color: #ccc;
+}
+
+.player {
+    background-color: blue; /* Set the snake color */
+}
+
+.player2{
+    background-color: rgb(14, 160, 14); /* Set the snake 2 color */
+}
+
+.apple {
+    background-color: red;
+}
+
+/* Style for the game over card */
+.game-over-card {
+    display: none;
+    position: absolute;
+    width: 300px;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    margin-top: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Add these styles for the shareable link card */
+#shareLinkCard {
+    position: fixed; /* or absolute, depending on your preference */
+    top: 30%; /* adjust this as needed to center vertically */
+    left: 70%; /* adjust this as needed to center horizontally */
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    display: none; /* Initially hide the card */
+    z-index: 999; /* Set a high z-index to ensure it's above other content */
+  }
+
+  /* Add styles for the copy link button */
+#copyLinkButton {
+    background-color: rgb(14, 160, 14);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  #copyLinkButton:hover {
+    background-color: #0056b3;
+  }

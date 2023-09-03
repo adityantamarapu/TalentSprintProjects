@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake Game</title>
+    <!-- Include Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Include Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="../css/play_game.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Add Player 2 Button -->
+      <button id="addPlayer2Button" class="btn btn-primary float-right mt-2">
+        Add Player 2
+      </button>
+
+      <!-- Shareable Link Card (initially hidden) -->
+      <div id="shareLinkCard" class="card mt-4 hover-card" style="display: none">
+        <div class="card-body">
+          <h5 class="card-title">Share this link with Player 2</h5>
+          <p class="card-text">
+            Use the following link to join the game on the same LAN:
+          </p>
+          <input type='text' id="shareableLink" class="form-control" readonly />
+          <button id="copyLinkButton">Copy Link</button>
+        </div>
+      </div>
+      <div class="game-container">
+        <div class="game-over-card card text-center">
+          <div class="card-body">
+            <h2 class="card-title">Game Over</h2>
+            <p class="card-text">Snake hit the wall or itself!</p>
+            <button class="btn btn-primary play-again-button">
+              <i class="fas fa-redo-alt"></i> Play Again
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include the Socket.IO client library -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script> -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../javascript/multi_play_game.js"></script>
+    <!-- <script src="../javascript/snake_server.js"></script> -->
+  </body>
+</html>
