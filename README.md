@@ -14,4 +14,4 @@ The following are the list of small projects I worked on at TalentSprint:
    Used socket.io to set up two client-server connections.   
    Requires to have [Node.js](https://nodejs.org/en/download) installed.
    Download the snake_game folder from [TalentSprintProjects/TalentSprint](https://github.com/adityantamarapu/TalentSprintProjects/tree/main/TalentSprint).
-   Run "node install" to load dependencies and "node server.js" in the command line from the downloaded snake_game directory to play.
+   Run "npm install" to load dependencies and "node server.js" in the command line from the downloaded snake_game directory to play.
