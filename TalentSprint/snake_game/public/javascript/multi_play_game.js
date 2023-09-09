@@ -18,6 +18,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const host_IP = urlParams.get("2IP");
 const password = urlParams.get("password"); // Get the secret password from URL param
 const isHost = urlParams.get("isHost") === "true";
+const port= 7000;
 
 // Determine the class to add based on host_IP
 const classToAdd = isHost === false || isHost === null ? "player2" : "player";
@@ -40,7 +41,7 @@ if (isHost === true) {
       // Generate the shareable link with password
       const shareableLink =
         `http://` +
-        host_IP +
+        host_IP +':'+ port +
         `/view/multi_play_game.html?2IP=` +
         host_IP +
         `&password=${encodeURIComponent(password)}&isHost=false`;
