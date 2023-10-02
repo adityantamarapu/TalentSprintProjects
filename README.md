@@ -17,5 +17,5 @@ The following are the list of small projects I worked on at TalentSprint:
    Run "npm install" to load dependencies and "node server.js" in the command line from the downloaded snake_game directory to play.
 
 5. Expense Tracker React-Native App:
-    Track, Search and char/ plot your expenses with this expense tracking react-native app. Built to learn react-native development.
+    Track, search and chart/ plot your expenses with this expense tracking react-native app. Built to learn react-native development.
     Navigate to [TalentSprint/ExpenseTracker](https://github.com/adityantamarapu/TalentSprintProjects/tree/main/TalentSprint/ExpenseTracker_) to check it out.
