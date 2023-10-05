@@ -1,19 +1,38 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
 import { useExpenseContext } from '../contexts/ExpenseContext';
+import { useSettingsContext } from '../contexts/SettingsContext'; 
 
 const ExpenseSearchScreen = () => {
   const { expenses } = useExpenseContext();
+  const { settings } = useSettingsContext();
+
+  const selectedCurrency = settings.currency;
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-
+  
   // Handle expense search
   const handleExpenseSearch = (text) => {
     setSearchText(text);
     const filteredExpenses = expenses.filter((expense) =>
-      expense.name.toLowerCase().includes(text.toLowerCase())
+      expense.name.toLowerCase().includes(text.toLowerCase()) ||
+      expense.amount.toString().toLowerCase().includes(text.toLowerCase())
     );
     setSearchResults(filteredExpenses);
+  };
+
+  // Function to format the amount with the currency symbol
+  const formatAmountWithCurrency = (amount) => {
+    // You can implement a currency symbol lookup based on the selectedCurrency here
+    // For simplicity, we'll use "$" for USD and "€" for EUR.
+    switch (selectedCurrency) {
+      case 'USD':
+        return `$${amount}`;
+      case 'EUR':
+        return `€${amount}`;
+      default:
+        return `${selectedCurrency} ${amount}`;
+    }
   };
 
   return (
@@ -35,7 +54,7 @@ const ExpenseSearchScreen = () => {
         renderItem={({ item }) => (
           <View style={styles.expenseItem}>
             <Text>{item.name}</Text>
-            <Text>${item.amount}</Text>
+            <Text>{formatAmountWithCurrency(item.amount)}</Text>
             <Text>{item.date}</Text>
           </View>
         )}

@@ -2,16 +2,16 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'; // Import the AntDesign icons
 import { useExpenseContext } from '../contexts/ExpenseContext';
-import { useTheme } from '../contexts/ThemeContext';
 import { createStackNavigator } from '@react-navigation/stack';
 import ExpenseSearchScreen from '../screens/ExpenseSearchScreen';
+import { useSettingsContext } from '../contexts/SettingsContext'; 
 
 const Stack = createStackNavigator();
 const HomeScreen = ({ navigation }) => {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
-        name="Home"
+        name="HomeContent"
         component={HomeContent}
         options={{ headerShown: false }}
       />
@@ -22,7 +22,9 @@ const HomeScreen = ({ navigation }) => {
 
 const HomeContent = ({ navigation }) => {
   const { expenses } = useExpenseContext();
-  const { theme } = useTheme();
+  const { settings } = useSettingsContext();
+
+  const selectedCurrency = settings.currency;
 
   const navigateToAddExpense = () => {
     navigation.navigate('AddExpense');
@@ -30,6 +32,14 @@ const HomeContent = ({ navigation }) => {
 
   const navigateToExpenseSearch = () => {
     navigation.navigate('ExpenseSearch');
+  };
+
+  // Helper function to format an amount in the selected currency
+  const formatAmount = (amount) => {
+    // Implement your currency conversion logic here based on the selected currency
+    // For example, you can use a library or API to fetch exchange rates
+    // For now, we'll just append the currency symbol
+    return `${selectedCurrency} ${amount}`;
   };
 
   return (
@@ -58,7 +68,7 @@ const HomeContent = ({ navigation }) => {
         renderItem={({ item }) => (
           <View style={styles.expenseItem}>
             <Text>{item.name}</Text>
-            <Text>${item.amount}</Text>
+            <Text>{formatAmount(item.amount)}</Text>
             <Text>{item.date}</Text>
           </View>
         )}

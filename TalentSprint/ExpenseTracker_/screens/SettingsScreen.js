@@ -1,28 +1,56 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import ThemeSelectionScreen from './ThemeSelectionScreen'; // Import your ThemeSelectionScreen
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Linking,
+} from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import ThemeSelectionScreen from "./ThemeSelectionScreen";
+import CurrencySettingsScreen from "./CurrencySettingsScreen";
+import IconLinkedIn from "react-native-vector-icons/Entypo";
+import IconEmail from "react-native-vector-icons/MaterialIcons";
 
 const Stack = createStackNavigator();
 
 function SettingsScreen({ navigation }) {
-  // Handle functions for various settings can be added here
-
   return (
     <Stack.Navigator initialRouteName="Settings">
-      <Stack.Screen name="Settings" component={SettingsContent} options={{headerShown: false}}/>
+      <Stack.Screen
+        name="SettingsContent"
+        component={SettingsContent}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="ThemeSelection" component={ThemeSelectionScreen} />
+      <Stack.Screen
+        name="CurrencySettings"
+        component={CurrencySettingsScreen}
+      />
     </Stack.Navigator>
   );
 }
 
 function SettingsContent({ navigation }) {
-  
-  // Handle the "App Theme and Appearance" button press
   const handleThemeButtonPress = () => {
-    navigation.navigate('ThemeSelection'); // Navigate to the ThemeSelectionScreen
+    navigation.navigate("ThemeSelection");
   };
-  
+
+  const handleCurrencyButtonPress = () => {
+    navigation.navigate("CurrencySettings");
+  };
+
+  // Function to open LinkedIn profile
+  const openLinkedInProfile = () => {
+    Linking.openURL("https://www.linkedin.com/in/adityan-tamarapu");
+  };
+
+  // Function to open Email
+  const openEmail = () => {
+    Linking.openURL("mailto:tamarapu.adityan@gmail.com");
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Settings</Text>
@@ -33,7 +61,10 @@ function SettingsContent({ navigation }) {
       </TouchableOpacity>
 
       {/* Currency Settings */}
-      <TouchableOpacity style={styles.settingItem}>
+      <TouchableOpacity
+        style={styles.settingItem}
+        onPress={handleCurrencyButtonPress}
+      >
         <Text>Currency Settings</Text>
       </TouchableOpacity>
 
@@ -48,12 +79,15 @@ function SettingsContent({ navigation }) {
       </TouchableOpacity>
 
       {/* Privacy and Security */}
-      <TouchableOpacity style={styles.settingItem} >
+      <TouchableOpacity style={styles.settingItem}>
         <Text>Privacy and Security</Text>
       </TouchableOpacity>
 
       {/* App Theme and Appearance */}
-      <TouchableOpacity style={styles.settingItem} onPress={handleThemeButtonPress}>
+      <TouchableOpacity
+        style={styles.settingItem}
+        onPress={handleThemeButtonPress}
+      >
         <Text>App Theme and Appearance</Text>
       </TouchableOpacity>
 
@@ -81,6 +115,34 @@ function SettingsContent({ navigation }) {
       <TouchableOpacity style={styles.settingItem}>
         <Text>Clear Data</Text>
       </TouchableOpacity>
+
+      <View style={styles.descriptionContainer}>
+        <Text style={styles.description}>
+          Hi, I am Adityan Tamarapu, a 2023 CS graduate who is interested in
+          software engineering. I am building this app to learn react-native.
+        </Text>
+
+        <View style={styles.iconRow}>
+          {/* LinkedIn Icon */}
+          <TouchableOpacity
+            style={styles.linkContainer}
+            onPress={openLinkedInProfile}
+          >
+            <IconLinkedIn name="linkedin" size={24} color="#0077B5" />
+            <Text style={styles.linkText}>LinkedIn</Text>
+          </TouchableOpacity>
+
+          <View style={{ width: 16 }} />
+
+          {/* Email Icon */}
+          <TouchableOpacity style={styles.linkContainer} onPress={openEmail}>
+            <IconEmail name="email" size={24} color="#0077B5" />
+            <Text style={styles.linkText}>Email</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={{ paddingBottom: 32 }}></View>
     </ScrollView>
   );
 }
@@ -92,15 +154,38 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 16,
   },
   settingItem: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 16,
     borderRadius: 8,
     elevation: 2,
     marginBottom: 16,
+  },
+  descriptionContainer: {
+    backgroundColor: "#fff",
+    padding: 16,
+    borderRadius: 8,
+    elevation: 2,
+    marginTop: 16,
+  },
+  description: {
+    marginBottom: 8,
+  },
+  iconRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 8,
+  },
+  linkContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 16,
+  },
+  linkText: {
+    marginLeft: 8,
   },
 });
 

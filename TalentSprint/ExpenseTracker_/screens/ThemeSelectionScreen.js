@@ -1,25 +1,29 @@
 import React from 'react';
 import { View, Text, Switch, StyleSheet } from 'react-native';
-import { useTheme } from '../contexts/ThemeContext'; // Import your theme context
+import { useSettingsContext } from '../contexts/SettingsContext'; // Import the useSettingsContext hook
 
 function ThemeSelectionScreen({ navigation }) {
-  const { theme, setTheme } = useTheme();
+  const { settings, updateSettings } = useSettingsContext(); // Access the settings and updateSettings function
 
+  // Function to toggle the theme
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
+    // Toggle between 'light' and 'dark'
+    const newTheme = settings.theme === 'light' ? 'dark' : 'light';
+
+    // Update the theme setting and save it
+    updateSettings({ ...settings, theme: newTheme });
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme === 'light' ? '#fff' : '#000' }]}>
+    <View style={styles.container}>
       <View style={styles.topRow}>
-        <Text style={[styles.themeText, { color: theme === 'light' ? '#000' : '#fff' }]}>Use dark theme</Text>
+        <Text style={[styles.themeText, { color: '#000'}]}>Use dark theme</Text>
         <Switch
           trackColor={{ false: '#3498db', true: '#f1c40f' }}
-          thumbColor={theme === 'light' ? '#f1c40f' : '#3498db'}
+          thumbColor={'#f1c40f'}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleTheme}
-          value={theme === 'dark'} // Set the value based on the current theme
+          value={settings.theme === 'dark'} // Set the value based on the current theme
         />
       </View>
     </View>

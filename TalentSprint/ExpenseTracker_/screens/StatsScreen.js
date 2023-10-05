@@ -4,16 +4,20 @@ import { LineChart, PieChart } from "react-native-chart-kit";
 import { useExpenseContext } from "../contexts/ExpenseContext";
 import moment from "moment";
 import { Picker } from "@react-native-picker/picker";
+import { useSettingsContext } from '../contexts/SettingsContext'; 
 
 const StatsScreen = () => {
   const { expenses } = useExpenseContext();
+  const { settings } = useSettingsContext();
 
-  console.log(expenses);
+  //console.log(expenses);
 
   const currentYear = new Date().getFullYear(); // Get the current year
 
   const [selectedYear, setSelectedYear] = useState(currentYear); // Set the default to the current year
   const [filteredExpenses, setFilteredExpenses] = useState([]);
+
+  const selectedCurrency = settings.currency;
 
   // Filter expenses by the selected year whenever it changes
   useEffect(() => {
@@ -70,17 +74,23 @@ const StatsScreen = () => {
     legendFontSize: 12,
   }));
 
+  // Helper function to format an amount in the selected currency
+  const formatAmount = (amount) => {
+    // Implement your currency conversion logic here based on the selected currency
+    // For example, you can use a library or API to fetch exchange rates and convert the amount
+    // For now, we'll just append the currency symbol
+    return `${selectedCurrency} ${amount.toFixed(2)}`;
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Statistics</Text>
 
-      {/* Year Filter */}
       <Picker
         selectedValue={selectedYear}
         onValueChange={(year) => setSelectedYear(year)}
         style={styles.yearPicker}
       >
-        {/* Populate the picker with available years */}
         {Array.from(
           new Set(
             expenses.map((expense) =>
@@ -94,13 +104,11 @@ const StatsScreen = () => {
 
       {selectedYear && ( // Only display when a year is selected
         <>
-          {/* Total Expenses for the selected year */}
           <View style={styles.statCard}>
             <Text>Total Expenses for {selectedYear}</Text>
-            <Text>${totalExpenses.toFixed(2)}</Text>
+            <Text>{formatAmount(totalExpenses)}</Text>
           </View>
 
-          {/* Expense Categories for the selected year (Pie Chart) */}
           <View style={styles.chartContainer}>
             <Text>Expense Categories for {selectedYear}</Text>
             <PieChart
@@ -116,7 +124,6 @@ const StatsScreen = () => {
             />
           </View>
 
-          {/* Monthly Spending Trends for the selected year (Line Chart) */}
           <View style={styles.chartContainer}>
             <Text>Monthly Spending Trends for {selectedYear}</Text>
             <LineChart
@@ -134,6 +141,8 @@ const StatsScreen = () => {
           </View>
         </>
       )}
+
+      <View style={{ paddingBottom: 16 }}></View>
     </ScrollView>
   );
 };

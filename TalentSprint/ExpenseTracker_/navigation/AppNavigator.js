@@ -5,12 +5,9 @@ import HomeScreen from "../screens/HomeScreen";
 import StatsScreen from "../screens/StatsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import AddExpenseScreen from "../screens/AddExpenseScreen";
-import { useTheme } from "../contexts/ThemeContext";
-
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
-  const { theme } = useTheme(); // Use your theme context to get the theme
 
   return (
       <Tab.Navigator

@@ -5,6 +5,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import Modal from 'react-native-modal';
 import { useExpenseContext } from '../contexts/ExpenseContext';
 import { Picker } from '@react-native-picker/picker'; // Import Picker from '@react-native-picker/picker'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function AddExpenseScreen({ navigation }) {
   const { expenses, setExpenses } = useExpenseContext();
@@ -14,7 +15,7 @@ function AddExpenseScreen({ navigation }) {
   const [customCategory, setCustomCategory] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const handleAddExpense = () => {
+  const handleAddExpense = async () => {
     if (!expenseName || !expenseAmount || selectedCategory === 'Select Category') {
       return;
     }
@@ -31,6 +32,13 @@ function AddExpenseScreen({ navigation }) {
     };
 
     setExpenses([...expenses, newExpense]);
+
+    try {
+      await AsyncStorage.setItem('expenses', JSON.stringify([...expenses, newExpense]));
+    } catch (error) {
+      console.error('Error saving expenses to AsyncStorage:', error);
+    }
+
     setExpenseName('');
     setExpenseAmount('');
     setCustomCategory('');
