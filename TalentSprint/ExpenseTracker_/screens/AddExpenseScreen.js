@@ -1,22 +1,39 @@
-//addExpenseScreen.js
-
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import Modal from 'react-native-modal';
-import { useExpenseContext } from '../contexts/ExpenseContext';
-import { Picker } from '@react-native-picker/picker'; // Import Picker from '@react-native-picker/picker'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import Modal from "react-native-modal";
+import { useExpenseContext } from "../contexts/ExpenseContext";
+import { Picker } from "@react-native-picker/picker";
+import { useSettingsContext } from "../contexts/SettingsContext";
 
 function AddExpenseScreen({ navigation }) {
-  const { expenses, setExpenses } = useExpenseContext();
-  const [expenseName, setExpenseName] = useState('');
-  const [expenseAmount, setExpenseAmount] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('Select Category');
-  const [customCategory, setCustomCategory] = useState('');
+  const { pushExpense } = useExpenseContext();
+  const [expenseName, setExpenseName] = useState("");
+  const [expenseAmount, setExpenseAmount] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Select Category");
+  const [customCategory, setCustomCategory] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
+  const { settings } = useSettingsContext();
 
-  const handleAddExpense = async () => {
-    if (!expenseName || !expenseAmount || selectedCategory === 'Select Category') {
+  const [categories, setCategories] = useState(settings.categories);
+
+  useEffect(() => {
+    // Load categories from settings when the component mounts
+    setCategories(settings.categories);
+    console.log(settings.categories, categories);
+  }, [settings.categories]);
+
+  const handleAddExpense = () => {
+    if (
+      !expenseName ||
+      !expenseAmount ||
+      selectedCategory === "Select Category"
+    ) {
       return;
     }
 
@@ -28,27 +45,20 @@ function AddExpenseScreen({ navigation }) {
       name: expenseName,
       amount: parseFloat(expenseAmount),
       date: formattedDate,
-      category: selectedCategory === 'Other' ? customCategory : selectedCategory,
+      category:
+        selectedCategory === "Other" ? customCategory : selectedCategory,
     };
 
-    setExpenses([...expenses, newExpense]);
+    pushExpense(newExpense);
 
-    try {
-      await AsyncStorage.setItem('expenses', JSON.stringify([...expenses, newExpense]));
-    } catch (error) {
-      console.error('Error saving expenses to AsyncStorage:', error);
-    }
-
-    setExpenseName('');
-    setExpenseAmount('');
-    setCustomCategory('');
+    setExpenseName("");
+    setExpenseAmount("");
+    setCustomCategory("");
     setModalVisible(true);
     setTimeout(() => {
       setModalVisible(false);
     }, 2000);
   };
-
-  const commonCategories = ['Select Category', 'Groceries', 'Utilities', 'Dinner', 'Transportation'];
 
   return (
     <View style={styles.container}>
@@ -75,19 +85,21 @@ function AddExpenseScreen({ navigation }) {
           selectedValue={selectedCategory}
           onValueChange={(itemValue) => {
             setSelectedCategory(itemValue);
-            if (itemValue === 'Other') {
-              setCustomCategory('');
+            if (itemValue === "Other") {
+              setCustomCategory("");
             }
           }}
         >
-          {commonCategories.map((category) => (
-            <Picker.Item key={category} label={category} value={category} />
-          ))}
+          <Picker.Item label="Select Category" value="Select Category" />
+          {categories &&
+            categories.map((category) => (
+              <Picker.Item key={category} label={category} value={category} />
+            ))}
           <Picker.Item label="Other" value="Other" />
         </Picker>
       </View>
 
-      {selectedCategory === 'Other' && (
+      {selectedCategory === "Other" && (
         <TextInput
           style={styles.input}
           placeholder="Custom Category"
@@ -116,12 +128,12 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 16,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 8,
     padding: 12,
     marginBottom: 16,
@@ -132,35 +144,35 @@ const styles = StyleSheet.create({
   },
   categoryDropdown: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 8,
     marginBottom: 16,
   },
   addButton: {
-    backgroundColor: 'navy',
+    backgroundColor: "navy",
     borderRadius: 20,
     padding: 12,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 16,
     width: 100,
   },
   addButtonLabel: {
     fontSize: 18,
-    color: 'white',
+    color: "white",
   },
   modal: {
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     margin: 0,
   },
   modalContainer: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 16,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },
   modalText: {
     fontSize: 18,
-    color: 'black',
+    color: "black",
   },
 });
 
