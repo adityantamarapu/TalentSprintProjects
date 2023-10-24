@@ -3,11 +3,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
 import StatsScreen from "../screens/StatsScreen";
-import SettingsScreen from "../screens/SettingsScreen";
+import SettingsScreen from "../screens/settings/SettingsScreen";
 import AddExpenseScreen from "../screens/AddExpenseScreen";
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = () => {
+const AppNavigator = ({route}) => {
 
   return (
       <Tab.Navigator
@@ -22,7 +22,6 @@ const AppNavigator = () => {
         <Tab.Screen
           name="Home"
           component={HomeScreen}
-          initialParams={{ expenses: [] }} // Set the initialParams for the Home screen
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color, size }) => (
@@ -57,6 +56,7 @@ const AppNavigator = () => {
         <Tab.Screen
           name="Settings"
           component={SettingsScreen}
+          initialParams={{ setIsLoggedIn: route.params.setIsLoggedIn }}
           options={{
             tabBarLabel: "Settings",
             tabBarIcon: ({ color, size }) => (

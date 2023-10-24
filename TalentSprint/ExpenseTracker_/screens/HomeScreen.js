@@ -1,10 +1,17 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign'; // Import the AntDesign icons
-import { useExpenseContext } from '../contexts/ExpenseContext';
-import { createStackNavigator } from '@react-navigation/stack';
-import ExpenseSearchScreen from '../screens/ExpenseSearchScreen';
-import { useSettingsContext } from '../contexts/SettingsContext'; 
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+} from "react-native";
+import Icon from "react-native-vector-icons/AntDesign"; // Import the AntDesign icons
+import { useExpenseContext } from "../contexts/ExpenseContext";
+import { createStackNavigator } from "@react-navigation/stack";
+import ExpenseSearchScreen from "../screens/ExpenseSearchScreen";
+import { useSettingsContext } from "../contexts/SettingsContext";
+import LoginScreen from "./LoginScreen";
 
 const Stack = createStackNavigator();
 const HomeScreen = ({ navigation }) => {
@@ -27,11 +34,11 @@ const HomeContent = ({ navigation }) => {
   const selectedCurrency = settings.currency;
 
   const navigateToAddExpense = () => {
-    navigation.navigate('AddExpense');
+    navigation.navigate("AddExpense");
   };
 
   const navigateToExpenseSearch = () => {
-    navigation.navigate('ExpenseSearch');
+    navigation.navigate("ExpenseSearch");
   };
 
   // Helper function to format an amount in the selected currency
@@ -83,44 +90,44 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: 16,
   },
   header: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   subHeaderContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   subHeader: {
     fontSize: 18,
     marginTop: 16,
   },
   expenseItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginVertical: 8,
   },
   customButton: {
     zIndex: 1,
-    position: 'absolute',
+    position: "absolute",
     bottom: 16,
     right: 16,
-    backgroundColor: 'navy',
+    backgroundColor: "navy",
     borderRadius: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: 56,
     height: 56,
   },
   buttonText: {
     fontSize: 24,
-    color: 'white',
+    color: "white",
   },
 });
 

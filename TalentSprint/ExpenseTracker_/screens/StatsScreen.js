@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { LineChart, PieChart } from "react-native-chart-kit";
 import { useExpenseContext } from "../contexts/ExpenseContext";
 import moment from "moment";
@@ -10,7 +10,7 @@ const StatsScreen = () => {
   const { expenses } = useExpenseContext();
   const { settings } = useSettingsContext();
 
-  //console.log(expenses);
+  console.log(expenses);
 
   const currentYear = new Date().getFullYear(); // Get the current year
 
@@ -22,7 +22,7 @@ const StatsScreen = () => {
   // Filter expenses by the selected year whenever it changes
   useEffect(() => {
     const filtered = expenses.filter((expense) => {
-      const expenseYear = moment(expense.date, "MM/DD/YYYY, HH:mm:ss").year();
+      const expenseYear = moment(expense.date, "DD/MM/YYYY, HH:mm:ss").year();
       return expenseYear === selectedYear;
     });
     setFilteredExpenses(filtered);
@@ -49,10 +49,10 @@ const StatsScreen = () => {
 
   // Calculate monthly spending trends for the selected year
   const monthlyTrends = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [
       {
-        data: [0, 0, 0, 0, 0, 0],
+        data: Array(12).fill(0),
         color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
         strokeWidth: 2,
       },
@@ -60,8 +60,8 @@ const StatsScreen = () => {
   };
 
   filteredExpenses.forEach((expense) => {
-    const date = moment(expense.date, "MM/DD/YYYY, HH:mm:ss"); // Parse the date string
-    const monthIndex = date.month(); // Get the month index
+    const date = moment(expense.date, "DD/MM/YYYY, HH:mm:ss");
+    const monthIndex = date.month();
     monthlyTrends.datasets[0].data[monthIndex] += expense.amount;
   });
 
@@ -94,7 +94,7 @@ const StatsScreen = () => {
         {Array.from(
           new Set(
             expenses.map((expense) =>
-              moment(expense.date, "MM/DD/YYYY, HH:mm:ss").year()
+              moment(expense.date, "DD/MM/YYYY, HH:mm:ss").year()
             )
           )
         ).map((year) => (
@@ -124,21 +124,26 @@ const StatsScreen = () => {
             />
           </View>
 
-          <View style={styles.chartContainer}>
-            <Text>Monthly Spending Trends for {selectedYear}</Text>
-            <LineChart
-              data={monthlyTrends}
-              width={300}
-              height={200}
-              chartConfig={{
-                backgroundGradientFrom: "#fff",
-                backgroundGradientTo: "#fff",
-                color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
-              }}
-              bezier
-              style={{ marginVertical: 8 }}
-            />
-          </View>
+          <ScrollView
+              horizontal
+              contentContainerStyle={styles.horizontalScrollContainer}
+            >
+              <View style={styles.chartContainer}>
+                <Text>Monthly Spending Trends for {selectedYear}</Text>
+                <LineChart
+                  data={monthlyTrends}
+                  width={Dimensions.get("window").width - 32} // Adjusted width
+                  height={200}
+                  chartConfig={{
+                    backgroundGradientFrom: "#fff",
+                    backgroundGradientTo: "#fff",
+                    color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
+                  }}
+                  bezier
+                  style={{ marginVertical: 8 }}
+                />
+              </View>
+            </ScrollView>
         </>
       )}
 

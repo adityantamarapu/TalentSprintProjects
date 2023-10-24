@@ -42,9 +42,10 @@ export const SettingsProvider = ({ children }) => {
   };
 
   const updateSettings = async (newSettings) => {
+    const updatedSettings = {...settings, ...newSettings};
     try {
-      setSettings(newSettings);
-      await AsyncStorage.setItem("settings", JSON.stringify(newSettings));
+      setSettings(updatedSettings);
+      await AsyncStorage.setItem("settings", JSON.stringify(updatedSettings));
     } catch (error) {
       console.error("Error saving settings to AsyncStorage:", error);
     }

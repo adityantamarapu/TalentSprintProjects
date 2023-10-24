@@ -14,15 +14,18 @@ import ClearDataScreen from "./ClearDataSettingsScreen";
 import CategoriesSettingsScreen from "./CategoriesSettingsScreen";
 import ThemeSettingsScreen from "./ThemeSettingsScreen.js";
 import CurrencySettingsScreen from "./CurrencySettingsScreen";
+import LogoutScreen from "./LogoutScreen";
+import { useExpenseContext } from "../../contexts/ExpenseContext";
 
 const Stack = createStackNavigator();
 
-function SettingsScreen({ navigation }) {
+function SettingsScreen({ navigation, route }) {
   return (
     <Stack.Navigator initialRouteName="Settings">
       <Stack.Screen
         name="SettingsContent"
         component={SettingsContent}
+        initialParams={{setIsLoggedIn: route.params.setIsLoggedIn}}
         options={{ headerShown: false }}
       />
       <Stack.Screen name="ThemeSelectionSettings" component={ThemeSettingsScreen} />
@@ -38,11 +41,18 @@ function SettingsScreen({ navigation }) {
         name="CategoriesSettings"
         component={CategoriesSettingsScreen}
       />
+      <Stack.Screen
+        name="LogoutScreen"
+        component={LogoutScreen}
+      />
     </Stack.Navigator>
   );
 }
 
-function SettingsContent({ navigation }) {
+function SettingsContent({ navigation, route }) {
+
+  const {setExpenses} = useExpenseContext();
+
   const handleThemeButtonPress = () => {
     navigation.navigate("ThemeSelectionSettings");
   };
@@ -58,7 +68,13 @@ function SettingsContent({ navigation }) {
   const handleCategoriesPress = () => {
     navigation.navigate("CategoriesSettings");
   };
-
+  
+  const handleLogoutPress= () => {
+    setExpenses([]);
+    //navigation.navigate('LogoutScreen',{setIsLoggedIn : route.params.setIsLoggedIn});
+    route.params.setIsLoggedIn();
+    //console.log(route, route.params);
+  }
   // Function to open LinkedIn profile
   const openLinkedInProfile = () => {
     Linking.openURL("https://www.linkedin.com/in/adityan-tamarapu");
@@ -119,19 +135,19 @@ function SettingsContent({ navigation }) {
         <Text>About and Help</Text>
       </TouchableOpacity>
 
-      {/* Logout and Account Deletion */}
-      <TouchableOpacity style={styles.settingItem}>
-        <Text>Logout</Text>
-      </TouchableOpacity>
-
       {/* Automatic Backup Settings */}
-      <TouchableOpacity style={styles.settingItem}>
+      <TouchableOpacity style={styles.settingItem} >
         <Text>Automatic Backup Settings</Text>
       </TouchableOpacity>
 
       {/* Clear Data */}
       <TouchableOpacity style={styles.settingItem} onPress={handleClearDataPress}>
         <Text>Clear Data</Text>
+      </TouchableOpacity>
+
+      {/* Logout and Account Deletion */}
+      <TouchableOpacity style={styles.settingItem} onPress={handleLogoutPress}>
+        <Text>Logout</Text>
       </TouchableOpacity>
 
       <View style={styles.descriptionContainer}>
