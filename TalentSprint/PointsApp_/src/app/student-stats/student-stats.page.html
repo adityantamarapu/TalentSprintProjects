@@ -1,0 +1,78 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/student-list"
+        [text]="student.studentName"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Course List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Course List</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-item
+      *ngFor="let course of courses"
+      [routerLink]="['/course-list', batchName, student.studentID, course]"
+    >
+      {{ course }}
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-input
+      [(ngModel)]="newCourseName"
+      placeholder="Enter course name"
+      type="text"
+    ></ion-input>
+    <ion-button
+      (click)="createCourse()"
+      [disabled]="!newCourseName"
+      expand="full"
+      color="primary"
+      >Create Course</ion-button
+    >
+  </ion-item>
+
+  <ion-item>
+    <ion-button
+      (click)="openReportModal()"
+      fill="clear"
+      expand="full"
+      color="success"
+      ><ion-icon name="stats-chart" slot="start"></ion-icon>Generate Student
+      Report</ion-button
+    >
+  </ion-item>
+
+  <!-- <ion-list>
+    <ion-item *ngFor="let course of courses">
+      <ion-grid>
+        <ion-row>
+          <ion-col><ion-label>{{ course.courseName }}</ion-label></ion-col>
+          <ion-col></ion-col>
+          <ion-col>
+            <ion-buttons>
+              <ion-button (click)="openConfirmDialog('remove', course)">
+                <ion-icon name="remove-circle"></ion-icon>
+              </ion-button>
+              <ion-label style="margin: 0 10px">
+                {{ course.points }}
+              </ion-label>
+              <ion-button (click)="openConfirmDialog('add', course)">
+                <ion-icon name="add-circle"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list> -->
+</ion-content>

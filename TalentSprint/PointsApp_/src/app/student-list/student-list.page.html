@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/batch-list"
+        [text]="batchName"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Student List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Student List</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionInput)="searchStudents()"
+  ></ion-searchbar>
+
+  <ion-list>
+    <ion-item
+      *ngFor="let student of filteredStudents"
+      [routerLink]="['/student-stats', student.studentID, student.studentName, batchName]"
+    >
+      {{ student.studentName }}
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-input [(ngModel)]="newStudentName" placeholder="Enter student name" type="text"></ion-input>
+    <ion-button (click)="createStudent()" [disabled]="!newStudentName" expand="full" color="primary" >Create Student</ion-button>
+  </ion-item>
+
+  <ion-item>
+    <ion-button
+      (click)="openReportModal()"
+      fill="clear"
+      expand="full"
+      color="success"
+      ><ion-icon name="stats-chart" slot="start"></ion-icon>Generate Batch
+      Report</ion-button
+    >
+  </ion-item>
+
+  <!-- <ion-row class="ion-align-items-center ion-justify-content-start">
+    <ion-button (click)="refreshStudents()" fill="clear" size="small">
+      <ion-icon name="refresh" class="refresh-icon"></ion-icon>
+      <span style="margin-left: 4px;">Refresh</span>
+    </ion-button>
+  </ion-row> -->
+</ion-content>

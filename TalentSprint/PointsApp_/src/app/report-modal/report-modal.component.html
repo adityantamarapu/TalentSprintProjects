@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{studentName}} Report</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-spinner *ngIf="loading" name="crescent" class="ion-text-center"></ion-spinner> -->
+  <canvas #pieChart *ngIf="!loading"></canvas>
+  <!-- <canvas #lineChart *ngIf="!loading"></canvas> -->
+</ion-content>

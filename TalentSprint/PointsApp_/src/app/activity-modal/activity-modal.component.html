@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Points</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid class="ion-text-center">
+    <ion-label>Add Points for {{newActivityName}}?</ion-label>
+    <ion-row justify-content-center>
+      <ion-col size="auto">
+        <ion-button (click)="addPoints(5)">5 Points</ion-button>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button (click)="addPoints(10)">10 Points</ion-button>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button (click)="addPoints(15)">15 Points</ion-button>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button (click)="addPoints(20)">20 Points</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

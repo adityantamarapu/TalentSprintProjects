@@ -1,0 +1,7 @@
+{
+  "name": "points-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
