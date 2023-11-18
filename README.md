@@ -19,3 +19,7 @@ The following are the list of small projects I worked on at TalentSprint:
 5. Expense Tracker React-Native App:
     Track, search and chart/ plot your expenses with this expense tracking react-native app. Built to learn react-native development.
     Navigate to [TalentSprint/ExpenseTracker](https://github.com/adityantamarapu/TalentSprintProjects/tree/main/TalentSprint/ExpenseTracker_) to check it out.
+
+6. Points Ionic-Angular App:
+    This app was intented for Trainers at TalentSprint to help them track activity points given to students in class. It was made with ionic-angular framework. 
+    Navigate to [TalentSprint/PointsApp](https://github.com/adityantamarapu/TalentSprintProjects/tree/main/TalentSprint/PointsApp_) to check it out.
